@@ -32,5 +32,14 @@ export class UserService {
     getAllUsers = () => {
         return this.db
     }
+
+    deleteUser = (id: number): boolean => {
+        const index = id-1;
+        if (this.db[index] !== null && this.db[index] !== undefined) {
+            this.db = this.db.slice(id, 1);
+            console.log('Deletando usuário...', id) 
+            return true;
+        } else return false;
+    }
 }
 
