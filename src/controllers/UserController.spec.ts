@@ -53,6 +53,20 @@ describe('UserController', () => {
     })
 
 
+    it('Deve retornar erro na tentativa de adicionar um novo usuário com campo e-mail inválido', () => {
+        const mockRequest = {
+            body: {
+                name: 'Nath',
+                email: null
+            }
+        } as Request
+        const mockResponse = makeMockResponse()
+        userController.createUser(mockRequest, mockResponse)
+        expect(mockResponse.state.status).toBe(400)
+        expect(mockResponse.state.json).toMatchObject({ message: 'Bad request! E-mail obrigatório' })
+    })
+
+
     it('Deve retornar uma lista de usuários', () => {
         const mockRequest = {} as Request
         const mockResponse = makeMockResponse();

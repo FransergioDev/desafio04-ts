@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { UserService } from '../services/UserService'
+import { User, UserService } from '../services/UserService'
 
 export class UserController {
     userService: UserService
@@ -11,10 +11,14 @@ export class UserController {
     }
 
     createUser = (request: Request, response: Response): Response => {
-        const user = request.body
+        const user: User = request.body
 
         if(!user.name){
             return response.status(400).json({ message: 'Bad request! Name obrigatório'})
+        }
+        
+        if(!user.email){
+            return response.status(400).json({ message: 'Bad request! E-mail obrigatório'})
         }
 
         this.userService.createUser(user.name, user.email)
